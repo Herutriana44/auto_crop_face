@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Face Crop - Face Recognition</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Auto Face Crop</h1>
+            <p class="subtitle">Crop wajah otomatis dari foto dan video</p>
+            <div class="gpu-info">
+                <span class="gpu-badge" id="gpu-badge">
+                    {% if gpu_info.type == 'cuda' %}
+                    🚀 GPU: {{ gpu_info.name }}
+                    {% elif gpu_info.type == 'rocm' %}
+                    🚀 GPU: {{ gpu_info.name }}
+                    {% elif gpu_info.type == 'metal' %}
+                    🚀 GPU: {{ gpu_info.name }}
+                    {% else %}
+                    💻 CPU Mode
+                    {% endif %}
+                </span>
+            </div>
+        </header>
+
+        <main>
+            <div class="upload-section" id="upload-section">
+                <div class="drop-zone" id="drop-zone">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <p class="drop-text">Drag & drop file di sini atau klik untuk upload</p>
+                    <p class="file-info">Format: JPG, PNG, WebP, MP4, AVI, MOV, MKV, WebM</p>
+                    <p class="file-info">Max: 50MB (gambar) / 200MB (video)</p>
+                    <input type="file" id="file-input" accept="image/jpeg,image/jpg,image/png,image/webp,video/mp4,video/avi,video/x-msvideo,video/quicktime,video/x-matroska,video/webm" hidden>
+                </div>
+
+                <div class="selected-file" id="selected-file" style="display: none;">
+                    <div class="file-details">
+                        <span class="file-name" id="file-name"></span>
+                        <span class="file-type" id="file-type"></span>
+                    </div>
+                    <button class="btn-clear" id="btn-clear">✕</button>
+                </div>
+
+                <button class="btn-upload" id="btn-upload" disabled>
+                    <span id="upload-text">Upload & Proses</span>
+                </button>
+            </div>
+
+            <div class="progress-section" id="progress-section" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text" id="progress-text">Memproses...</p>
+            </div>
+
+            <div class="results-section" id="results-section" style="display: none;">
+                <div class="results-header">
+                    <h2>Hasil Crop (<span id="faces-count">0</span> wajah)</h2>
+                    <button class="btn-download-all" id="btn-download-all">
+                        📦 Download Semua (ZIP)
+                    </button>
+                </div>
+                <div class="results-grid" id="results-grid"></div>
+                <button class="btn-new" id="btn-new">Upload File Baru</button>
+            </div>
+
+            <div class="error-section" id="error-section" style="display: none;">
+                <div class="error-box">
+                    <h3>❌ Error</h3>
+                    <p id="error-message"></p>
+                </div>
+                <button class="btn-new" id="btn-retry">Coba Lagi</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Flask + MediaPipe | 1.5x Bounding Box Crop</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
