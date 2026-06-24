@@ -26,7 +26,7 @@ Web application sederhana untuk auto-crop wajah dari foto dan video menggunakan 
 
 ```bash
 # Clone repository
-git clone https://github.com/USERNAME/auto_crop_face.git
+git clone https://github.com/Herutriana44/auto_crop_face.git
 cd auto_crop_face
 
 # Install dependencies
